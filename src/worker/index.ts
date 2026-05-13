@@ -20,6 +20,7 @@ export default {
 
     const logger = (line: LogLine) => server.send(JSON.stringify({ type: "log", data: line }));
     console.log("Browser info", env.Browser);
+    server.send(JSON.stringify({ type: "log", data: { browser: env.BROWSER, cdpUrl } }));
 
     const run = async () => {
       // Get the CDP URL from browser rendering binding
@@ -67,6 +68,7 @@ export default {
         server.send(JSON.stringify({ type: "error", data: { message, stack } }));
       } finally {
         await stagehand.close();
+        server.send(JSON.stringify({ type: "log", data: { browser: env.BROWSER, cdpUrl } }));
       }
     };
     ctx.waitUntil(run());
