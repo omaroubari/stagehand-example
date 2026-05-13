@@ -49,7 +49,7 @@ export default {
         await page.act('Click the search result');
         
         // normal playwright functions work as expected
-        await page.waitForSelector('.info-wrapper .cast');
+        // await page.waitForSelector('.info-wrapper .cast');
 
         let movieInfo = await page.extract({
           instruction: 'Extract movie information',
