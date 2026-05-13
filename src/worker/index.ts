@@ -19,7 +19,7 @@ export default {
     server.accept();
 
     const logger = (line: LogLine) => server.send(JSON.stringify({ type: "log", data: line }));
-    server.send(JSON.stringify({ browser: "stagehand", data: env.Browser }));
+    console.log("Browser info", env.Browser);
 
     const run = async () => {
       // Get the CDP URL from browser rendering binding
