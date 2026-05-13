@@ -20,7 +20,6 @@ export default {
 
     const logger = (line: LogLine) => server.send(JSON.stringify({ type: "log", data: line }));
     console.log("Browser info", env.Browser);
-    server.send(JSON.stringify({ type: "log", data: { browser: env.BROWSER, cdpUrl } }));
 
     const run = async () => {
       // Get the CDP URL from browser rendering binding
@@ -39,6 +38,7 @@ export default {
       startScreencast(server, page);
 
       try {
+        server.send(JSON.stringify({ type: "log", data: { browser: env.BROWSER, cdpUrl } }));
         await page.goto('https://demo.playwright.dev/movies');
     
         // if search is a multi-step action, stagehand will return an array of actions it needs to act on
@@ -61,7 +61,7 @@ export default {
             duration: z.number().describe("Duration in minutes"),
           }),
         });
-
+        
         server.send(JSON.stringify({ type: "extracted", data: movieInfo }));
       } catch (e) {
         const { message, stack } = e as Error;
